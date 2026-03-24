@@ -1,8 +1,14 @@
 ---
 layout: default
-title: Full Changelog
-permalink: /changelog/
+render_with_liquid: false
 ---
 
-{% capture changelog %}{% include_relative CHANGELOG.md %}{% endcapture %}
-{{ changelog | markdownify }}
+# Changelog — Claude Code Plugins
+
+Summary of all plugin releases in
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+See each plugin's CHANGELOG.md for full details.
+
+---
+
+*Regenerate with: `python3 scripts/generate-changelogs.py <repo> --output-dir docs --rollup`*
