@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Github
 
+> Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories, and interact with GitHub's full API directly from Claude Code.
+
 All notable changes to `external_plugins/github` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/github).
 

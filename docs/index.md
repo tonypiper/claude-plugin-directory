@@ -16,14 +16,14 @@ Last generated: {{ site.time | date: "%Y-%m-%d" }}
 
 | Plugin | Version | Last Updated | Description |
 |--------|---------|--------------|-------------|
-{% for plugin in site.data.plugins %}{% if plugin.type == "external_plugins" %}| [{{ plugin.name }}]({{ plugin.changelog }}) | `{{ plugin.version }}` | {{ plugin.last_updated }} | {{ plugin.description | truncate: 80 }} |
+{% for plugin in site.data.plugins %}{% if plugin.type == "external_plugins" %}| [{{ plugin.name }}]({{ plugin.changelog }}) | `{{ plugin.version }}` | {{ plugin.last_updated }} | {{ plugin.description }} |
 {% endif %}{% endfor %}
 
 ## Internal Plugins (Skills & Tools)
 
 | Plugin | Version | Last Updated | Description |
 |--------|---------|--------------|-------------|
-{% for plugin in site.data.plugins %}{% if plugin.type == "plugins" %}| [{{ plugin.name }}]({{ plugin.changelog }}) | `{{ plugin.version }}` | {{ plugin.last_updated }} | {{ plugin.description | truncate: 80 }} |
+{% for plugin in site.data.plugins %}{% if plugin.type == "plugins" %}| [{{ plugin.name }}]({{ plugin.changelog }}) | `{{ plugin.version }}` | {{ plugin.last_updated }} | {{ plugin.description }} |
 {% endif %}{% endfor %}
 
 ---

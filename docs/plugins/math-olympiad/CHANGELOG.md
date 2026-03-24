@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Math-olympiad
 
+> Solve competition math (IMO, Putnam, USAMO) with adversarial verification that catches what self-verification misses. Fresh-context verifiers attack proofs with specific failure patterns. Calibrated abstention over bluffing.
+
 All notable changes to `plugins/math-olympiad` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/math-olympiad).
 

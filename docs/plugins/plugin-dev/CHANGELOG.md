@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Plugin-dev
 
+> Plugin development toolkit with skills for creating agents, commands, hooks, MCP integrations, and comprehensive plugin structure guidance
+
 All notable changes to `plugins/plugin-dev` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev).
 

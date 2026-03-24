@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Fakechat
 
+> Localhost iMessage-style web chat for Claude Code — test surface with file upload and edits. No tokens, no access control.
+
 All notable changes to `external_plugins/fakechat` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/fakechat).
 

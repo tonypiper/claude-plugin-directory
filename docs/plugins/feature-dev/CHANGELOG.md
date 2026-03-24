@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Feature-dev
 
+> Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review
+
 All notable changes to `plugins/feature-dev` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev).
 

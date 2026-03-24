@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Imessage
 
+> iMessage channel for Claude Code — reads chat.db directly, sends via AppleScript. Built-in access control; manage pairing, allowlists, and policy via /imessage:access.
+
 All notable changes to `external_plugins/imessage` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage).
 

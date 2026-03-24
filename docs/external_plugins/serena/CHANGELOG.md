@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Serena
 
+> Semantic code analysis MCP server providing intelligent code understanding, refactoring suggestions, and codebase navigation through language server protocol integration.
+
 All notable changes to `external_plugins/serena` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/serena).
 

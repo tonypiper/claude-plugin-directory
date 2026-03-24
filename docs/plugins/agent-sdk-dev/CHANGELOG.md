@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Agent-sdk-dev
 
+> Claude Agent SDK Development Plugin
+
 All notable changes to `plugins/agent-sdk-dev` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/agent-sdk-dev).
 

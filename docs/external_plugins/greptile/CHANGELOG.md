@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Greptile
 
+> AI code review agent for GitHub and GitLab. View and resolve Greptile's PR review comments directly from Claude Code.
+
 All notable changes to `external_plugins/greptile` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/greptile).
 

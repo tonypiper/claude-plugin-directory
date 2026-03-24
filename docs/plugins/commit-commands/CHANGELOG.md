@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Commit-commands
 
+> Streamline your git workflow with simple commands for committing, pushing, and creating pull requests
+
 All notable changes to `plugins/commit-commands` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/commit-commands).
 

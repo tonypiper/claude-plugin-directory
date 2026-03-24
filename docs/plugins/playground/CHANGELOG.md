@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Playground
 
+> Creates interactive HTML playgrounds — self-contained single-file explorers with visual controls, live preview, and prompt output with copy button
+
 All notable changes to `plugins/playground` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/playground).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Skill-creator
 
+> Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.
+
 All notable changes to `plugins/skill-creator` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Mcp-server-dev
 
+> Skills for designing and building MCP servers that work seamlessly with Claude — guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps.
+
 All notable changes to `plugins/mcp-server-dev` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/mcp-server-dev).
 

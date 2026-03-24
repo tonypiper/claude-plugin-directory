@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Context7
 
+> Upstash Context7 MCP server for up-to-date documentation lookup. Pull version-specific documentation and code examples directly from source repositories into your LLM context.
+
 All notable changes to `external_plugins/context7` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/context7).
 

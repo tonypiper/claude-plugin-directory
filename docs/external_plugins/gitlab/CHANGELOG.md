@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Gitlab
 
+> GitLab DevOps platform integration. Manage repositories, merge requests, CI/CD pipelines, issues, and wikis. Full access to GitLab's comprehensive DevOps lifecycle tools.
+
 All notable changes to `external_plugins/gitlab` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/gitlab).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Learning-output-style
 
+> Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)
+
 All notable changes to `plugins/learning-output-style` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/learning-output-style).
 

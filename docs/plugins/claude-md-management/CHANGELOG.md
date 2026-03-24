@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Claude-md-management
 
+> Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.
+
 All notable changes to `plugins/claude-md-management` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management).
 

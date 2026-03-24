@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Explanatory-output-style
 
+> Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)
+
 All notable changes to `plugins/explanatory-output-style` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/explanatory-output-style).
 

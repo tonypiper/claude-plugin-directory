@@ -303,7 +303,8 @@ def group_commits_by_version(
 def format_changelog(
     plugin_name: str,
     plugin_path: str,
-    sections: list[VersionSection]
+    sections: list[VersionSection],
+    description: str = ""
 ) -> str:
     """Format version sections into a CHANGELOG.md string."""
 
@@ -315,6 +316,12 @@ def format_changelog(
         "",
         f"# Changelog — {plugin_name}",
         "",
+    ]
+
+    if description:
+        lines += [f"> {description}", ""]
+
+    lines += [
         f"All notable changes to `{plugin_path}` in",
         f"[anthropics/claude-plugins-official]({REPO_URL}/tree/main/{plugin_path}).",
         "",
@@ -437,6 +444,7 @@ def main():
 
     for plugin_path, plugin_type in plugins:
         plugin_name = get_plugin_name(repo_path, plugin_path)
+        description = get_plugin_description(repo_path, plugin_path)
         print(f"  Generating: {plugin_name} ({plugin_path})")
 
         # Get version history
@@ -458,7 +466,7 @@ def main():
         sections = group_commits_by_version(commits, boundaries)
 
         # Format
-        changelog = format_changelog(plugin_name, plugin_path, sections)
+        changelog = format_changelog(plugin_name, plugin_path, sections, description)
 
         # Write
         out_path = os.path.join(output_dir, plugin_path, "CHANGELOG.md")

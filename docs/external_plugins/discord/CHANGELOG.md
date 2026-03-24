@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Discord
 
+> Discord channel for Claude Code — messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access.
+
 All notable changes to `external_plugins/discord` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord).
 

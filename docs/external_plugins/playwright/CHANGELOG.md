@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Playwright
 
+> Browser automation and end-to-end testing MCP server by Microsoft. Enables Claude to interact with web pages, take screenshots, fill forms, click elements, and perform automated browser testing workflows.
+
 All notable changes to `external_plugins/playwright` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/playwright).
 

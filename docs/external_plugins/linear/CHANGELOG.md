@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Linear
 
+> Linear issue tracking integration. Create issues, manage projects, update statuses, search across workspaces, and streamline your software development workflow with Linear's modern issue tracker.
+
 All notable changes to `external_plugins/linear` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/linear).
 

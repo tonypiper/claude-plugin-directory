@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Asana
 
+> Asana project management integration. Create and manage tasks, search projects, update assignments, track progress, and integrate your development workflow with Asana's work management platform.
+
 All notable changes to `external_plugins/asana` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/asana).
 

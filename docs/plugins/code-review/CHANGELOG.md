@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Code-review
 
+> Automated code review for pull requests using multiple specialized agents with confidence-based scoring
+
 All notable changes to `plugins/code-review` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review).
 

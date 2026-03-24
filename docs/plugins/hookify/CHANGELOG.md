@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Hookify
 
+> Easily create hooks to prevent unwanted behaviors by analyzing conversation patterns
+
 All notable changes to `plugins/hookify` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/hookify).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Firebase
 
+> Google Firebase MCP integration. Manage Firestore databases, authentication, cloud functions, hosting, and storage. Build and manage your Firebase backend directly from your development workflow.
+
 All notable changes to `external_plugins/firebase` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/firebase).
 

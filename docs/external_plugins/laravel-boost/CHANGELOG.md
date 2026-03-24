@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Laravel-boost
 
+> Laravel development toolkit MCP server. Provides intelligent assistance for Laravel applications including Artisan commands, Eloquent queries, routing, migrations, and framework-specific code generation.
+
 All notable changes to `external_plugins/laravel-boost` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/laravel-boost).
 

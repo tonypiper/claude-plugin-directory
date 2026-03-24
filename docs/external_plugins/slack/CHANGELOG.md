@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Slack
 
+> Slack workspace integration. Search messages, access channels, read threads, and stay connected with your team's communications while coding. Find relevant discussions and context quickly.
+
 All notable changes to `external_plugins/slack` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/slack).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Security-guidance
 
+> Security reminder hook that warns about potential security issues when editing files, including command injection, XSS, and unsafe code patterns
+
 All notable changes to `plugins/security-guidance` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance).
 

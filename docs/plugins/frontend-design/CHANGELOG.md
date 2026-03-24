@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Frontend-design
 
+> Frontend design skill for UI/UX implementation
+
 All notable changes to `plugins/frontend-design` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Ralph-loop
 
+> Continuous self-referential AI loops for interactive iterative development, implementing the Ralph Wiggum technique. Run Claude in a while-true loop with the same prompt until task completion.
+
 All notable changes to `plugins/ralph-loop` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop).
 

@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Supabase
 
+> Supabase MCP integration for database operations, authentication, storage, and real-time subscriptions. Manage your Supabase projects, run SQL queries, and interact with your backend directly.
+
 All notable changes to `external_plugins/supabase` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/supabase).
 

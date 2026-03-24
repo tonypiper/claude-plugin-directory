@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Example-plugin
 
+> A comprehensive example plugin demonstrating all Claude Code extension options including commands, agents, skills, hooks, and MCP servers
+
 All notable changes to `plugins/example-plugin` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin).
 

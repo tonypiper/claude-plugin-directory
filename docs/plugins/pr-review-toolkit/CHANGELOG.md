@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Pr-review-toolkit
 
+> Comprehensive PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification
+
 All notable changes to `plugins/pr-review-toolkit` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit).
 

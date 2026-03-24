@@ -5,6 +5,8 @@ render_with_liquid: false
 
 # Changelog — Code-simplifier
 
+> Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality
+
 All notable changes to `plugins/code-simplifier` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier).
 
