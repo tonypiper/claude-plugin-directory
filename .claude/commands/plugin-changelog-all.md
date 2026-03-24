@@ -137,6 +137,8 @@ render_with_liquid: false
 
 # Changelog — <Plugin Name>
 
+> <description from plugin.json>
+
 All notable changes to `<plugin-path>` in
 [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/<plugin-path>).
 
