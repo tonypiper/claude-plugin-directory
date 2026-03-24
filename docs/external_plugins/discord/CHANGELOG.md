@@ -17,52 +17,46 @@ This changelog was compiled from the merged PR and commit history on the `main` 
 
 ## [0.0.4] — 2026-03-23
 
-### Changed
-- **Compact permission messages with expandable details** — Permission approval messages now show only the tool name by default, with a "See more" button that expands inline to show the full description and input preview JSON. This reduces noise for routine approvals while keeping full context one tap away.
+### Added
+- **compact permission messages with expandable** — compact permission messages with expandable details
   [`4b1e2a2`](https://github.com/anthropics/claude-plugins-official/commit/4b1e2a28ceab32b49b447d6255d6f3c4fa8774de) · 2026-03-23 · ([#952](https://github.com/anthropics/claude-plugins-official/pull/952))
-
----
 
 ## [0.0.3] — 2026-03-23
 
 ### Added
-- **Inline approval buttons** — Permission requests now show native Discord buttons (Discord.js `ButtonBuilder`) so you can approve or deny with one tap instead of typing a 5-character reply ID. After a decision the message updates to show the outcome and the buttons are removed. The text-reply path is kept as a fallback.
+- **inline buttons for permission approval** — inline buttons for permission approval
   [`b3a0714`](https://github.com/anthropics/claude-plugins-official/commit/b3a0714d7ffc4dec08b8d0dad2aa3dc09b000e98) · 2026-03-23 · ([#945](https://github.com/anthropics/claude-plugins-official/pull/945))
-
----
 
 ## [0.0.2] — 2026-03-20
 
 ### Added
-- **Permission relay** — Claude can now send tool-permission requests over Discord and wait for your approval before running a tool. Outbound requests are fanned out to all allowlisted DMs; inbound "yes/no \<id\>" replies are intercepted before reaching Claude and emitted as structured permission events. Guild channels are excluded — only DMs, per single-user-mode policy.
-  [`daa84c9`](https://github.com/anthropics/claude-plugins-official/commit/daa84c99c815fb2832ecb5df80613e2088af0191) · 2026-03-20 · ([#833](https://github.com/anthropics/claude-plugins-official/pull/833))
-- **New-reply on task completion** — System instructions now steer the assistant to use message edits for progress updates (silent) and send a *new* reply when the task completes. Message edits don't trigger push notifications, so without this you'd miss the "done" signal on your device.
-  [`5c58308`](https://github.com/anthropics/claude-plugins-official/commit/5c58308be4c6f234a90bc93464bc2c065c4a54f0) · 2026-03-20
-
-### Changed
-- **Configurable state directory** — `DISCORD_STATE_DIR` lets you specify where allowlist and state files live, instead of always writing to `~/.claude/channels/discord/`. Enables multiple bots on one machine with separate tokens and allowlists.
-  [`14927ff`](https://github.com/anthropics/claude-plugins-official/commit/14927ff475758115791aceb4b53c0aadce8db4d8) · 2026-03-20
-
-### Fixed
-- **Resilience improvements** — Added process-level `unhandledRejection`/`uncaughtException` handlers, `client.on('error')` logging, `.unref()` on the approval-check interval, and a clean `SIGTERM`/`stdin EOF` shutdown path to prevent zombie processes and silent crashes. (Discord.js auto-reconnects, so this is less critical than for Telegram, but the gaps were still there.)
+- **permission-relay capability + bidirectional handlers** — permission-relay capability + bidirectional handlers
+  [`daa84c9`](https://github.com/anthropics/claude-plugins-official/commit/daa84c99c815fb2832ecb5df80613e2088af0191) · 2026-03-20
+- **discord: port resilience fixes from** — discord: port resilience fixes from telegram
   [`aa71c24`](https://github.com/anthropics/claude-plugins-official/commit/aa71c24314ab2336e4ae55d59490180822789d49) · 2026-03-20
+- **discord/telegram: guide assistant to send** — discord/telegram: guide assistant to send new reply on completion
+  [`5c58308`](https://github.com/anthropics/claude-plugins-official/commit/5c58308be4c6f234a90bc93464bc2c065c4a54f0) · 2026-03-20
+- **telegram/discord: make state dir configurable** — telegram/discord: make state dir configurable via env var
+  [`14927ff`](https://github.com/anthropics/claude-plugins-official/commit/14927ff475758115791aceb4b53c0aadce8db4d8) · 2026-03-20
+- **Merge pull request #811 from** — Merge pull request #811 from anthropics/kenneth/chmod-env-files
+  [`562a27f`](https://github.com/anthropics/claude-plugins-official/commit/562a27feec2c60bc94a3b58ae1b926382ae836bf) · 2026-03-20
+- **Lock telegram/discord .env files to** — Lock telegram/discord .env files to owner (chmod 600)
+  [`8140fba`](https://github.com/anthropics/claude-plugins-official/commit/8140fbad22814b99ad56e1161a43ec203da669d8) · 2026-03-20
 
-### Security
-- **Lock .env to owner permissions** — The bot token `.env` file is now `chmod 600` on load, preventing other users on the same machine from reading the credential. Pre-existing files are tightened on startup; the configure skill also runs `chmod` after writing.
-  [`8140fba`](https://github.com/anthropics/claude-plugins-official/commit/8140fbad22814b99ad56e1161a43ec203da669d8) · 2026-03-20 · ([#811](https://github.com/anthropics/claude-plugins-official/pull/811))
-
----
+### Docs
+- **README clarifications from docs walkthrough** — README clarifications from docs walkthrough testing
+  [`b01fad3`](https://github.com/anthropics/claude-plugins-official/commit/b01fad339621349a2b1dd83334c66e8fd356f223) · 2026-03-19
+- **Add Bun prerequisite to discord** — Add Bun prerequisite to discord and telegram plugin READMEs
+  [`8938650`](https://github.com/anthropics/claude-plugins-official/commit/89386504288e6c82800f7f28e47b44f3db91fce2) · 2026-03-19
 
 ## [0.0.1] — 2026-03-19
 
-> **Note:** The plugin was removed from the repository on 2026-03-18 ([#741](https://github.com/anthropics/claude-plugins-official/pull/741)) along with the Telegram and fakechat plugins, then restored two days later ([#753](https://github.com/anthropics/claude-plugins-official/pull/753)).
-
 ### Added
-- **Initial Discord channel plugin** — A local MCP server connecting Claude Code to Discord's Gateway via a bot token you create. Inbound messages are gated by an allowlist (default: pairing mode); guild channels require opt-in and @mention. Runs as a TypeScript/Bun process launched by `.mcp.json`. The `/discord:access` skill manages pairing, allowlists, and policy.
+- **Add discord channel plugin** — Add discord channel plugin
   [`4796148`](https://github.com/anthropics/claude-plugins-official/commit/4796148aceb77d37518b9c3028d6c225618ca296) · 2026-03-18 · ([#736](https://github.com/anthropics/claude-plugins-official/pull/736))
 
-### Docs
-- **Bun prerequisite** — Added a Prerequisites section to the README so users know Bun is required to run the MCP server, preventing a confusing missing-runtime error on first setup.
-  [`8938650`](https://github.com/anthropics/claude-plugins-official/commit/89386504288e6c82800f7f28e47b44f3db91fce2) · 2026-03-19
-- **README corrections** — Removed reference to `/reload-plugins` (redundant; you restart with `--channels`), corrected the token save path to `~/.claude/channels/`, and clarified that the bot only responds after the channel is running.
-  [`b01fad3`](https://github.com/anthropics/claude-plugins-official/commit/b01fad339621349a2b1dd83334c66e8fd356f223) · 2026-03-19
+### Changed
+- **Revert "Remove telegram, discord, and** — Revert "Remove telegram, discord, and fakechat plugins (#741)"
+  [`7994c27`](https://github.com/anthropics/claude-plugins-official/commit/7994c270e575fa82bc86b3e99363bf8fe55292f7) · 2026-03-19 · ([#741](https://github.com/anthropics/claude-plugins-official/pull/741))
+- **Remove telegram, discord, and fakechat** — Remove telegram, discord, and fakechat plugins
+  [`d53f6ca`](https://github.com/anthropics/claude-plugins-official/commit/d53f6ca4cdb000c671dfdc1c181b021e97c25505) · 2026-03-18 · ([#741](https://github.com/anthropics/claude-plugins-official/pull/741))
