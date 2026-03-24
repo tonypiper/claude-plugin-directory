@@ -1,0 +1,18 @@
+title: Claude Plugin Directory
+description: Unofficial changelog and version tracker for Claude Code plugins
+baseurl: "/claude-plugin-directory"
+url: ""
+theme: minima
+
+header_pages:
+  - index.md
+  - changelog.md
+
+plugins:
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
