@@ -6,7 +6,7 @@ theme: minima
 
 header_pages:
   - index.md
-  - changelog.md
+  - CHANGELOG.md
 
 plugins:
   - jekyll-seo-tag
