@@ -1,14 +1,3 @@
----
-name: plugin-changelog
-description: >
-  Generate a CHANGELOG.md for any plugin in the anthropics/claude-plugins-official repository
-  by analysing merged PRs, commit history, and version bumps in plugin.json. Use this skill
-  whenever the user asks to create, update, or compile a changelog for a Claude Code plugin,
-  or wants to understand what changed between plugin versions. Also trigger when the user
-  mentions "release notes", "version history", or "what shipped" in the context of Claude Code
-  plugins. Works for any plugin under external_plugins/ or plugins/ in the official repo.
----
-
 # Plugin Changelog Generator
 
 Generate a well-structured CHANGELOG.md for Claude Code plugins by reconstructing version
@@ -16,7 +5,7 @@ history from the local git log and plugin.json version bumps.
 
 ## Prerequisites
 
-This skill requires a local clone of the repo:
+This command requires a local clone of the repo:
 
 ```bash
 git clone https://github.com/anthropics/claude-plugins-official.git
@@ -225,22 +214,6 @@ Compact permission messages, inline approval buttons.
 
 ### discord → [0.0.4](external_plugins/discord/CHANGELOG.html)
 Compact permission messages, inline approval buttons.
-
-## 2026-03-23
-
-### telegram → [0.0.3](external_plugins/telegram/CHANGELOG.html)
-Permission-relay — approve tool use from your phone.
-
-### discord → [0.0.3](external_plugins/discord/CHANGELOG.html)
-Permission-relay — approve tool use from your phone.
-
-## 2026-03-20
-
-### telegram → [0.0.2](external_plugins/telegram/CHANGELOG.html)
-All file types, bot commands, MarkdownV2, resilience fixes.
-
-### discord → [0.0.2](external_plugins/discord/CHANGELOG.html)
-Edit notification guidance, state dir config, resilience fixes.
 ```
 
 The one-line summary should capture the headline feature(s) of that version — think of it as

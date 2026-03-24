@@ -8,7 +8,7 @@ The official repo has no releases, no tags, and no changelog. This project fills
 
 - `docs/` — Jekyll site (served via GitHub Pages) with per-plugin changelogs and a browsable index
 - `scripts/generate-changelogs.py` — Batch script that generates all changelogs from a local clone
-- `skill/SKILL.md` — Claude Code skill for generating changelogs interactively
+- `.claude/commands/plugin-changelog.md` — `/plugin-changelog` command for generating changelogs interactively in Claude Code
 
 ## Quick start
 

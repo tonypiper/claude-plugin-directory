@@ -36,7 +36,7 @@ cd docs && bundle install && bundle exec jekyll serve
 
 - **`scripts/generate-changelogs.py`** — Core generator (504 lines, no dependencies beyond stdlib + git CLI)
 - **`docs/`** — Jekyll site (GitHub Pages, baseurl `/claude-plugin-directory`)
-- **`skill/SKILL.md`** — Claude Code skill definition for interactive changelog generation
+- **`.claude/commands/plugin-changelog.md`** — `/plugin-changelog` command for interactive changelog generation
 
 ### Generator data flow
 
