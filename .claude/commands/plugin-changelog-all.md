@@ -28,73 +28,20 @@ find <repo-path> -name "plugin.json" -path "*/.claude-plugin/*" | sort
 Extract the plugin path (e.g. `external_plugins/telegram`) from each result by stripping
 the repo prefix and `/.claude-plugin/plugin.json` suffix.
 
-## Step 2: Gather all git data in one parallel shell pass
+## Step 2: Gather all git data in one pass
 
-Run this script **once** to dump version history, commits, and plugin.json content for every
-plugin into temp files. The `&` + `wait` pattern runs all plugins in parallel.
+Run the gather script to dump version history, commits, and plugin.json content for every
+plugin into temp files:
 
 ```bash
-python3 -c "
-import subprocess, json, os, pathlib
-
-REPO = '<repo-path>'
-TMPDIR = '/tmp/claude-changelog-data'
-pathlib.Path(TMPDIR).mkdir(exist_ok=True)
-
-plugins = subprocess.run(
-    ['find', REPO, '-name', 'plugin.json', '-path', '*/.claude-plugin/*'],
-    capture_output=True, text=True
-).stdout.strip().split('\n')
-
-plugin_paths = sorted([
-    p.replace(REPO + '/', '').replace('/.claude-plugin/plugin.json', '')
-    for p in plugins if p.strip()
-])
-
-for plugin in plugin_paths:
-    safe = plugin.replace('/', '__')
-    out = []
-
-    # Plugin metadata
-    meta = subprocess.run(['cat', f'{REPO}/{plugin}/.claude-plugin/plugin.json'], capture_output=True, text=True)
-    out.append('=== PLUGIN.JSON ===')
-    out.append(meta.stdout.strip())
-
-    # Version history (each SHA that touched plugin.json + version at that SHA)
-    out.append('\n=== VERSION HISTORY ===')
-    vlog = subprocess.run(
-        ['git', '-C', REPO, 'log', '--pretty=format:%H\t%h\t%ai\t%s', '--', f'{plugin}/.claude-plugin/plugin.json'],
-        capture_output=True, text=True
-    )
-    for line in vlog.stdout.strip().split('\n'):
-        if not line.strip(): continue
-        full_sha, short_sha, date, subject = line.split('\t', 3)
-        content = subprocess.run(
-            ['git', '-C', REPO, 'show', f'{full_sha}:{plugin}/.claude-plugin/plugin.json'],
-            capture_output=True, text=True
-        )
-        try: version = json.loads(content.stdout).get('version', 'deleted')
-        except: version = 'deleted/parse-error'
-        out.append(f'{full_sha}  {short_sha}  {version}  {date[:10]}  {subject}')
-
-    # All commits touching the plugin dir (no merges), with full SHA and body
-    out.append('\n=== COMMITS ===')
-    clog = subprocess.run(
-        ['git', '-C', REPO, 'log', '--pretty=format:COMMIT %H %h %ai%n%s%n%b%n---', '--no-merges', '--', plugin],
-        capture_output=True, text=True
-    )
-    out.append(clog.stdout.strip())
-
-    pathlib.Path(f'{TMPDIR}/{safe}.txt').write_text('\n'.join(out))
-    print(f'Gathered: {plugin}')
-
-print(f'\nAll data written to {TMPDIR}/')
-print('Plugin list:', ', '.join(plugin_paths))
-"
+python3 scripts/gather-plugin-data.py <repo-path>
 ```
 
-This writes one file per plugin to `/tmp/claude-changelog-data/`. Each file contains everything
-needed to write the changelog without any further git calls.
+This writes one file per plugin to `/tmp/claude-changelog-data/<plugin-safe-name>.txt`
+(where `/` in the plugin path is replaced with `__`, e.g. `external_plugins__telegram.txt`).
+
+Each file contains everything needed to write the changelog without any further git calls.
+The script takes ~5–10 seconds for the full repo.
 
 ## Step 3: Assess complexity and decide processing order
 

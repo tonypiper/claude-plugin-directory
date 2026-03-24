@@ -34,89 +34,46 @@ Ask the user which plugin they want a changelog for (or infer it from context). 
 
 Confirm the path exists in the local clone:
 ```bash
-ls <plugin-path>/.claude-plugin/plugin.json
+ls <repo-path>/<plugin-path>/.claude-plugin/plugin.json
 ```
 
-### Step 2: Get the version history
+### Step 2: Gather git data
 
-Use `git log` to fetch the commit history for the plugin's version file. This tells you when
-each version was cut and by whom.
+Run the gather script for the single plugin:
 
 ```bash
-git log --pretty=format:'%h  %ai  %an  %s' -- <plugin-path>/.claude-plugin/plugin.json
+python3 scripts/gather-plugin-data.py <repo-path> --plugin <plugin-path>
 ```
 
-This gives you a list of every commit that touched plugin.json, with short SHA, author date,
-author name, and subject line.
+This writes a single file to `/tmp/claude-changelog-data/<plugin-safe-name>.txt`
+(where `/` is replaced with `__`, e.g. `external_plugins__telegram.txt`).
 
-### Step 3: Get the version value at each commit
-
-For each commit that touched plugin.json, read the file content at that commit to extract the
-actual version number:
+Read that file — it contains:
+- The current `plugin.json` (name, description, version)
+- Version history: every SHA that touched `plugin.json`, with the version value at that SHA
+- All non-merge commits touching the plugin directory, newest first, with full bodies
 
 ```bash
-git show <sha>:<plugin-path>/.claude-plugin/plugin.json | python3 -c "import json,sys; print(json.load(sys.stdin).get('version','unknown'))"
+cat /tmp/claude-changelog-data/<plugin-safe-name>.txt
 ```
-
-This gives you a mapping of: version → commit SHA → date → commit message.
 
 **Important version edge cases:**
-- If a commit returns `"unknown"` or the version field is absent, that commit changed the
-  plugin metadata without bumping the version (e.g., description edits, keyword changes).
-  Do not treat these as version boundaries.
-- If the version field was removed entirely from plugin.json at some point (as happened with
-  the Slack plugin), note this in the changelog but don't invent a version number. Use
-  `[Unreleased]` for changes that occurred after the last known version.
-- If plugin.json has never contained a version field, or the plugin only has a single version,
-  use the actual version found (e.g., `[0.0.1]`) for the initial release and `[Unreleased]`
-  for any subsequent changes. Never invent or guess version numbers that don't appear in the
-  version file history.
+- If a commit returns `"deleted"` or `"deleted/parse-error"`, that commit removed or broke
+  the version field. Do not treat it as a version boundary.
+- If the version field was removed entirely at some point (as happened with the Slack plugin),
+  use `[Unreleased]` for changes after the last known version.
+- Never invent or guess version numbers that don't appear in the version history.
 
-### Step 4: Get all commits for the plugin directory
+### Step 3: Group commits by version
 
-Fetch the full commit history for the plugin directory. This includes all changes, not just
-version bumps:
+Working backwards from the newest version using the VERSION HISTORY section:
 
-```bash
-git log --pretty=format:'%H  %h  %ai  %an  %s' -- <plugin-path>
-```
-
-This returns the full SHA (for linking), short SHA, author date, author name, and subject.
-
-To extract PR numbers from merge commit messages:
-```bash
-git log --pretty=format:'%h  %ai  %s' -- <plugin-path> | grep -oP '\(#\K[0-9]+(?=\))'
-```
-
-Or parse them inline — PR numbers appear as `(#NNN)` in merge commit subjects.
-
-If commits reference PRs but the PR number isn't in the subject, you can check the commit body:
-```bash
-git log --pretty=format:'%h  %ai  %s%n%b' -- <plugin-path>
-```
-
-### Step 5: Group commits by version
-
-Working backwards from the newest version:
-
-1. Find the commit where each version was introduced (from Step 3)
+1. Find the SHA where each version was introduced
 2. All commits between version N-1 and version N belong to version N
-3. All commits after the latest version bump belong to `[Unreleased]`
-4. All commits before the first version bump belong to the initial release (0.0.1 or whatever it is)
+3. All commits after the latest version-bump SHA belong to `[Unreleased]`
+4. All commits on or before the first version-bump SHA belong to the initial release
 
-Use `git log` ranges to isolate commits per version:
-```bash
-# Commits between two version bumps
-git log --pretty=format:'%h  %ai  %s' <older-version-sha>..<newer-version-sha> -- <plugin-path>
-
-# Commits after the latest version bump (unreleased)
-git log --pretty=format:'%h  %ai  %s' <latest-version-sha>..HEAD -- <plugin-path>
-
-# Commits up to and including the first version (initial release)
-git log --pretty=format:'%h  %ai  %s' <first-version-sha> -- <plugin-path>
-```
-
-### Step 6: Classify changes
+### Step 4: Classify changes
 
 Use the commit message prefixes and PR titles to classify each change:
 
