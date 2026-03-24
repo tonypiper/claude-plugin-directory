@@ -6,7 +6,7 @@ render_with_liquid: false
 # Changelog — Learning-output-style
 
 All notable changes to `plugins/learning-output-style` in
-[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/learning-output-style).
 
 Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.
 This changelog was compiled from the merged PR and commit history on the `main` branch.

@@ -6,7 +6,7 @@ render_with_liquid: false
 # Changelog — Discord
 
 All notable changes to `external_plugins/discord` in
-[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord).
 
 Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.
 This changelog was compiled from the merged PR and commit history on the `main` branch.

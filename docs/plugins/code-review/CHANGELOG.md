@@ -6,7 +6,7 @@ render_with_liquid: false
 # Changelog — Code-review
 
 All notable changes to `plugins/code-review` in
-[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review).
 
 Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.
 This changelog was compiled from the merged PR and commit history on the `main` branch.

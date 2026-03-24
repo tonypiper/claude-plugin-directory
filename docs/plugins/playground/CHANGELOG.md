@@ -6,7 +6,7 @@ render_with_liquid: false
 # Changelog — Playground
 
 All notable changes to `plugins/playground` in
-[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/playground).
 
 Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.
 This changelog was compiled from the merged PR and commit history on the `main` branch.

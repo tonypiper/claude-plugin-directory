@@ -6,7 +6,7 @@ render_with_liquid: false
 # Changelog — Agent-sdk-dev
 
 All notable changes to `plugins/agent-sdk-dev` in
-[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official).
+[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/agent-sdk-dev).
 
 Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.
 This changelog was compiled from the merged PR and commit history on the `main` branch.

@@ -316,7 +316,7 @@ def format_changelog(
         f"# Changelog — {plugin_name}",
         "",
         f"All notable changes to `{plugin_path}` in",
-        f"[anthropics/claude-plugins-official]({REPO_URL}).",
+        f"[anthropics/claude-plugins-official]({REPO_URL}/tree/main/{plugin_path}).",
         "",
         "Versions refer to the `version` field in `.claude-plugin/plugin.json` where available.",
         "This changelog was compiled from the merged PR and commit history on the `main` branch.",
