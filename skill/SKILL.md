@@ -149,6 +149,11 @@ separate bullet points rather than lumping them into one entry.
 Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 
 ```markdown
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — <Plugin Name>
 
 All notable changes to `<plugin-path>` in
@@ -200,6 +205,11 @@ The repo-level changelog groups entries by date, with one-line summaries per plu
 that link to the detailed per-plugin changelog:
 
 ```markdown
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Claude Code Plugins
 
 Summary of all plugin releases in
@@ -210,26 +220,26 @@ See each plugin's CHANGELOG.md for full details.
 
 ## 2026-03-24
 
-### telegram → [0.0.4](external_plugins/telegram/CHANGELOG.md)
+### telegram → [0.0.4](external_plugins/telegram/CHANGELOG.html)
 Compact permission messages, inline approval buttons.
 
-### discord → [0.0.4](external_plugins/discord/CHANGELOG.md)
+### discord → [0.0.4](external_plugins/discord/CHANGELOG.html)
 Compact permission messages, inline approval buttons.
 
 ## 2026-03-23
 
-### telegram → [0.0.3](external_plugins/telegram/CHANGELOG.md)
+### telegram → [0.0.3](external_plugins/telegram/CHANGELOG.html)
 Permission-relay — approve tool use from your phone.
 
-### discord → [0.0.3](external_plugins/discord/CHANGELOG.md)
+### discord → [0.0.3](external_plugins/discord/CHANGELOG.html)
 Permission-relay — approve tool use from your phone.
 
 ## 2026-03-20
 
-### telegram → [0.0.2](external_plugins/telegram/CHANGELOG.md)
+### telegram → [0.0.2](external_plugins/telegram/CHANGELOG.html)
 All file types, bot commands, MarkdownV2, resilience fixes.
 
-### discord → [0.0.2](external_plugins/discord/CHANGELOG.md)
+### discord → [0.0.2](external_plugins/discord/CHANGELOG.html)
 Edit notification guidance, state dir config, resilience fixes.
 ```
 
@@ -242,8 +252,9 @@ individual changelogs, then merge the version dates into a single timeline sorte
 ### Step 9: Deliver
 
 Save per-plugin changelogs as `<plugin-path>/CHANGELOG.md` and the repo-level changelog as
-`CHANGELOG.md` in the outputs folder. If the user only asked for a single plugin, just deliver
-that one file.
+`CHANGELOG.md` in the outputs folder. Every CHANGELOG.md must include the Jekyll front matter
+block at the top (layout + render_with_liquid). If the user only asked for a single plugin,
+just deliver that one file.
 
 If the user wants to submit this as a PR, note that they'll need to fork the repo and create
 the PR themselves (or use `gh` CLI if they have it installed).
