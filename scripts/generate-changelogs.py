@@ -32,6 +32,7 @@ class Commit:
     author: str
     subject: str
     pr_number: Optional[str] = None
+    body: str = ""
 
     def __post_init__(self):
         # Extract PR number from subject like "feat: something (#123)"
@@ -69,6 +70,32 @@ def git(repo_path: str, *args) -> str:
         capture_output=True, text=True, timeout=30
     )
     return result.stdout.strip()
+
+
+_BODY_TRAILER_RE = re.compile(
+    r'^(co-authored-by|co-author|signed-off-by|🤖|claude-generated-by|'
+    r'claude-steers|claude-permission|claude-escapes)',
+    re.IGNORECASE
+)
+
+
+def _extract_body_summary(body: str) -> str:
+    """Extract the first meaningful paragraph from a commit body, skipping trailers."""
+    lines = body.strip().split('\n')
+    para = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if para:
+                break  # end of first paragraph
+            continue
+        if _BODY_TRAILER_RE.match(stripped):
+            break  # hit a git trailer line
+        para.append(stripped)
+    if not para:
+        return ""
+    text = ' '.join(para)
+    return text[:300] if len(text) > 300 else text
 
 
 def discover_plugins(repo_path: str) -> list[tuple[str, str]]:
@@ -154,21 +181,30 @@ def get_version_history(repo_path: str, plugin_path: str) -> list[VersionBoundar
 
 
 def get_all_commits(repo_path: str, plugin_path: str) -> list[Commit]:
-    """Get all commits that touched the plugin directory."""
-    log = git(repo_path, "log", "--pretty=format:%H  %h  %ai  %an  %s",
+    """Get all commits that touched the plugin directory, including commit bodies."""
+    raw = git(repo_path, "log",
+              "--pretty=format:COMMIT %H %h %ai%n%s%n%b%n---",
               "--", plugin_path)
-    if not log:
+    if not raw:
         return []
 
     commits = []
-    for line in log.strip().split("\n"):
-        if not line.strip():
+    for block in re.split(r'\n---(?:\n|$)', raw):
+        block = block.strip()
+        if not block or not block.startswith('COMMIT '):
             continue
-        parts = line.split("  ", 4)
-        if len(parts) < 5:
-            continue
-        full_sha, short_sha, date_str, author, subject = parts
-        date = date_str[:10]
+        lines = block.split('\n')
+
+        # Parse header: "COMMIT <40-char-sha> <short-sha> <date-with-time>"
+        header = lines[0][7:]  # strip "COMMIT "
+        full_sha = header[:40]
+        rest = header[41:]  # skip space after full_sha
+        parts = rest.split(' ', 1)
+        short_sha = parts[0]
+        date = parts[1][:10] if len(parts) > 1 else ''
+
+        subject = lines[1].strip() if len(lines) > 1 else ''
+        body_raw = '\n'.join(lines[2:]) if len(lines) > 2 else ''
 
         # Skip pure merge commits
         if subject.startswith("Merge remote-tracking branch") or subject.startswith("Merge branch"):
@@ -178,14 +214,15 @@ def get_all_commits(repo_path: str, plugin_path: str) -> list[Commit]:
             full_sha=full_sha,
             short_sha=short_sha,
             date=date,
-            author=author,
-            subject=subject
+            author='',
+            subject=subject,
+            body=_extract_body_summary(body_raw),
         ))
 
     return commits
 
 
-def classify_commit(subject: str) -> tuple[str, str, str]:
+def classify_commit(subject: str, body: str = "") -> tuple[str, str, str]:
     """Classify a commit into (category, title, description)."""
     subject_lower = subject.lower()
 
@@ -214,7 +251,9 @@ def classify_commit(subject: str) -> tuple[str, str, str]:
     title = " ".join(words[:5]) if len(words) > 5 else cleaned
     if len(title) > 60:
         title = title[:57] + "..."
-    description = cleaned
+
+    # Use commit body as description when available — it explains the *why*
+    description = body if body and body.lower() != cleaned.lower() else cleaned
 
     return category, title, description
 
@@ -247,7 +286,7 @@ def group_commits_by_version(
         # No versions at all — everything is Unreleased
         entries = []
         for c in commits:
-            cat, title, desc = classify_commit(c.subject)
+            cat, title, desc = classify_commit(c.subject, c.body)
             entries.append(ChangeEntry(category=cat, title=title, description=desc, commit=c))
         sections.append(VersionSection(version="Unreleased", date=None, entries=entries))
         return sections
@@ -262,7 +301,7 @@ def group_commits_by_version(
         unreleased_commits = commits[:newest_pos]
         entries = []
         for c in unreleased_commits:
-            cat, title, desc = classify_commit(c.subject)
+            cat, title, desc = classify_commit(c.subject, c.body)
             entries.append(ChangeEntry(category=cat, title=title, description=desc, commit=c))
         if entries:
             sections.append(VersionSection(version="Unreleased", date=None, entries=entries))
@@ -287,7 +326,7 @@ def group_commits_by_version(
 
         entries = []
         for c in version_commits:
-            cat, title, desc = classify_commit(c.subject)
+            cat, title, desc = classify_commit(c.subject, c.body)
             entries.append(ChangeEntry(category=cat, title=title, description=desc, commit=c))
 
         if entries:
@@ -423,6 +462,12 @@ def main():
     parser.add_argument("--output-dir", "-o", help="Output directory (default: write into repo clone)")
     parser.add_argument("--plugin", "-p", help="Generate for a single plugin (e.g. external_plugins/telegram)")
     parser.add_argument("--rollup", action="store_true", help="Also generate repo-level rollup changelog")
+    parser.add_argument("--rollup-only", action="store_true",
+                        help="Regenerate only the rollup CHANGELOG.md and _data/plugins.json. "
+                             "Does not touch per-plugin files.")
+    parser.add_argument("--skip-existing", action="store_true",
+                        help="Skip per-plugin changelogs that already exist on disk. "
+                             "Still computes data for rollup and index.")
     args = parser.parse_args()
 
     repo_path = os.path.abspath(args.repo_path)
@@ -468,12 +513,17 @@ def main():
         # Format
         changelog = format_changelog(plugin_name, plugin_path, sections, description)
 
-        # Write
+        # Write (unless --rollup-only or --skip-existing applies)
         out_path = os.path.join(output_dir, plugin_path, "CHANGELOG.md")
-        os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        with open(out_path, "w") as f:
-            f.write(changelog)
-        print(f"    Wrote: {out_path}")
+        if args.rollup_only:
+            pass  # skip per-plugin write; still need plugin_summaries for rollup
+        elif args.skip_existing and os.path.exists(out_path):
+            print(f"    Skipped (exists): {out_path}")
+        else:
+            os.makedirs(os.path.dirname(out_path), exist_ok=True)
+            with open(out_path, "w") as f:
+                f.write(changelog)
+            print(f"    Wrote: {out_path}")
 
         plugin_summaries.append({
             "plugin_path": plugin_path,
@@ -485,7 +535,7 @@ def main():
         })
 
     # Rollup
-    if args.rollup and len(plugin_summaries) > 1:
+    if (args.rollup or args.rollup_only) and len(plugin_summaries) > 1:
         rollup = format_rollup(plugin_summaries)
         rollup_path = os.path.join(output_dir, "CHANGELOG.md")
         with open(rollup_path, "w") as f:

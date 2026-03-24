@@ -1,11 +1,8 @@
 # Plugin Changelog Generator — All Plugins
 
-Generate intelligent changelogs for all plugins by using a shell script to gather git data
-in parallel, then processing each plugin in the main session to write well-described changelogs.
-
-This approach avoids subagents needing Bash permission (which requires interactive approval
-per-agent and breaks parallel workflows). All git work happens in one shell pass; all analysis
-and writing happens in the main Claude session.
+Generate intelligent changelogs for all plugins using a 3-tier approach: the Python generator
+handles simple plugins for free (zero tokens), AI rewrites are reserved for complex/medium
+plugins with meaningful history.
 
 ## Prerequisites
 
@@ -18,55 +15,62 @@ git clone https://github.com/anthropics/claude-plugins-official.git
 Default expected location: `../claude-plugins-official` (sibling of this repo).
 If the clone is elsewhere, ask the user for the path.
 
-## Step 1: Pull latest and discover plugins
+---
+
+## Step 1: Pull latest and gather all data
 
 ```bash
 cd <repo-path> && git pull --ff-only
-find <repo-path> -name "plugin.json" -path "*/.claude-plugin/*" | sort
-```
-
-Extract the plugin path (e.g. `external_plugins/telegram`) from each result by stripping
-the repo prefix and `/.claude-plugin/plugin.json` suffix.
-
-## Step 2: Gather all git data in one pass
-
-Run the gather script to dump version history, commits, and plugin.json content for every
-plugin into temp files:
-
-```bash
 python3 scripts/gather-plugin-data.py <repo-path>
 ```
 
-This writes one file per plugin to `/tmp/claude-changelog-data/<plugin-safe-name>.txt`
+The gather script writes one file per plugin to `/tmp/claude-changelog-data/<plugin-safe-name>.txt`
 (where `/` in the plugin path is replaced with `__`, e.g. `external_plugins__telegram.txt`).
+It takes ~5–10 seconds for the full repo and is safe to re-run.
 
-Each file contains everything needed to write the changelog without any further git calls.
-The script takes ~5–10 seconds for the full repo.
+## Step 2: Run generator for ALL plugins (baseline)
 
-## Step 3: Assess complexity and decide processing order
+```bash
+python3 scripts/generate-changelogs.py <repo-path> --output-dir docs
+```
 
-Read a few of the gathered data files to understand the landscape. For each plugin, count:
-- **Version bumps** — lines in the `=== VERSION HISTORY ===` section
-- **Commits** — count `COMMIT ` lines in the `=== COMMITS ===` section
+This writes all 36 per-plugin changelogs using commit subjects + bodies. For Tier 3 plugins
+(simple history) this is the **final output** — do not reprocess them.
 
-Prioritise:
-- **Complex** (4+ versions OR 15+ commits): process individually, write carefully
-- **Medium** (2–3 versions, up to 15 commits): process in batches of 3–4
-- **Simple** (1 version, ≤5 commits): batch up to 6 at once
+## Step 3: Classify plugins into tiers
 
-Process complex plugins first — they benefit most from careful descriptions.
+For each `/tmp/claude-changelog-data/*.txt` file, count:
+- **V** = number of lines in the `=== VERSION HISTORY ===` section
+- **C** = number of `COMMIT ` lines in the `=== COMMITS ===` section
 
-## Step 4: Process each plugin (or batch)
+Classify:
+- **Tier 1 — Complex** (V ≥ 4 OR C ≥ 15): process individually, full AI rewrite
+- **Tier 2 — Medium** (V ≥ 2 OR C ≥ 6): process in batches of 3
+- **Tier 3 — Simple** (everything else): generator output is final — **do not read these data files**
 
-For each plugin (or batch), read the gathered data file(s) and write the changelog.
+## Step 4: Check staleness for Tier 1 and Tier 2 plugins
+
+Before rewriting a Tier 1/2 changelog, check if the most recent commit SHA from its data
+file already appears in the existing `docs/<plugin>/CHANGELOG.md`. If present → already
+up to date, skip. If absent → needs rewrite.
+
+```bash
+# Extract the most recent commit SHA from the data file
+grep '^COMMIT ' /tmp/claude-changelog-data/<plugin-safe-name>.txt | head -1 | awk '{print $2}' | cut -c1-7
+# Check if it's already in the changelog
+grep "<short-sha>" docs/<plugin-path>/CHANGELOG.md
+```
+
+## Step 5: AI rewrites — Tier 1 individually, Tier 2 in batches of 3
+
+For each plugin needing a rewrite:
 
 ```bash
 cat /tmp/claude-changelog-data/<plugin-safe-name>.txt
 ```
 
-Where `<plugin-safe-name>` replaces `/` with `__` (e.g. `external_plugins__telegram.txt`).
-
-Then write `docs/<plugin-path>/CHANGELOG.md` using the format below.
+Read the full data file and write `docs/<plugin-path>/CHANGELOG.md` using the format below.
+This overwrites the generator output for that plugin only.
 
 **Important:** Read the full commit bodies — they explain *why* changes were made and are
 the key difference between an intelligent changelog and one that just restates commit subjects.
@@ -120,17 +124,18 @@ Working backwards from newest:
 
 The version-bump SHA itself belongs to the version it introduced.
 
-## Step 5: Generate updated rollup
+## Step 6: Regenerate rollup and index ONLY
 
-After all per-plugin changelogs are written, regenerate the rollup:
+After all AI rewrites are done, regenerate the rollup changelog and plugin index without
+touching any per-plugin files:
 
 ```bash
-python3 scripts/generate-changelogs.py <repo-path> --output-dir docs --rollup
+python3 scripts/generate-changelogs.py <repo-path> --output-dir docs --rollup-only
 ```
 
-Check that `docs/CHANGELOG.md` has `render_with_liquid: false` in its front matter.
+Verify `docs/CHANGELOG.md` has `render_with_liquid: false` in its front matter.
 
-## Step 6: Commit
+## Step 7: Commit
 
 ```bash
 git add -A
@@ -140,9 +145,10 @@ git push
 
 ## Notes
 
-- The data-gathering script (Step 2) runs in ~5–10 seconds for the full repo and is safe
-  to re-run — it just overwrites the temp files.
+- **Do not read Tier 3 data files.** The generator output is the final answer for these plugins.
+- **Step 6 uses `--rollup-only`.** This never touches per-plugin changelogs, so AI-written
+  changelogs are safe from being overwritten.
+- Token budget: ~0 for routine runs with no Tier 1/2 activity; ~8–10K to rewrite a single
+  updated Tier 1 plugin; ~35K for a full first run.
 - If a plugin's history is too large to process in one context pass, read only the version
   history section first to understand the structure, then read commits section by section.
-- Plugins that were recently added but have no interesting commits (just "initial scaffolding"
-  type entries) are fine to describe briefly — don't pad them with filler.

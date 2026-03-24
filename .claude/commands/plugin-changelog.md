@@ -183,10 +183,16 @@ individual changelogs, then merge the version dates into a single timeline sorte
 
 ### Step 9: Deliver
 
-Save per-plugin changelogs as `<plugin-path>/CHANGELOG.md` and the repo-level changelog as
-`CHANGELOG.md` in the outputs folder. Every CHANGELOG.md must include the Jekyll front matter
-block at the top (layout + render_with_liquid). If the user only asked for a single plugin,
-just deliver that one file.
+Save per-plugin changelogs as `<plugin-path>/CHANGELOG.md` and regenerate the rollup using
+`--rollup-only` so other per-plugin changelogs are not overwritten:
+
+```bash
+python3 scripts/generate-changelogs.py <repo-path> --output-dir docs --rollup-only
+```
+
+Every CHANGELOG.md must include the Jekyll front matter block at the top
+(layout + render_with_liquid). If the user only asked for a single plugin, just deliver
+that one file (skip the rollup step).
 
 If the user wants to submit this as a PR, note that they'll need to fork the repo and create
 the PR themselves (or use `gh` CLI if they have it installed).

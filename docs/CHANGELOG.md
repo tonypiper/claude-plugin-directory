@@ -14,60 +14,60 @@ See each plugin's CHANGELOG.md for full details.
 ## 2026-03-23
 
 ### Discord → [0.0.4](external_plugins/discord/CHANGELOG.html)
-compact permission messages with expandable details
+* feat(telegram,discord): compact permission messages with expandable details
 
 ### Discord → [0.0.3](external_plugins/discord/CHANGELOG.html)
-inline buttons for permission approval
+Replace "Reply 'yes abcde' to allow" text instruction with native inline butto
 
 ### Imessage → [Unreleased](external_plugins/imessage/CHANGELOG.html)
-Regenerate imessage bun.lock without artifactory URLs
+The lockfile had 94 artifactory.infra.ant.dev URLs baked in from generation be
 
 ### Telegram → [0.0.4](external_plugins/telegram/CHANGELOG.html)
-compact permission messages with expandable details
+* feat(telegram,discord): compact permission messages with expandable details
 
 ### Telegram → [0.0.3](external_plugins/telegram/CHANGELOG.html)
-inline buttons for permission approval
+Replace "Reply 'yes abcde' to allow" text instruction with native inline butto
 
 ## 2026-03-20
 
 ### Discord → [0.0.2](external_plugins/discord/CHANGELOG.html)
-permission-relay capability + bidirectional handlers
+Complete the plugin side of anthropics/claude-cli-internal#23061 (permission p
 
 ### Math-olympiad → [Unreleased](plugins/math-olympiad/CHANGELOG.html)
-Fix YAML frontmatter — quote description, replace colon with em-dash
+Unquoted colon in 'calibrated confidence: will say' broke strict YAML parsing.
 
 ### Mcp-server-dev → [Unreleased](plugins/mcp-server-dev/CHANGELOG.html)
 add(plugin): mcp-server-dev — skills for building MCP servers
 
 ### Telegram → [0.0.2](external_plugins/telegram/CHANGELOG.html)
-permission-relay capability + bidirectional handlers
+Complete the plugin side of anthropics/claude-cli-internal#23061 (permission p
 
 ## 2026-03-19
 
 ### Discord → [0.0.1](external_plugins/discord/CHANGELOG.html)
-Revert "Remove telegram, discord, and fakechat plugins (#741)"
+This reverts commit d53f6ca4cdb000c671dfdc1c181b021e97c25505.
 
 ### Fakechat → [0.0.1](external_plugins/fakechat/CHANGELOG.html)
-Revert "Remove telegram, discord, and fakechat plugins (#741)"
+This reverts commit d53f6ca4cdb000c671dfdc1c181b021e97c25505.
 
 ### Telegram → [0.0.1](external_plugins/telegram/CHANGELOG.html)
-Revert "Remove telegram, discord, and fakechat plugins (#741)"
+This reverts commit d53f6ca4cdb000c671dfdc1c181b021e97c25505.
 
 ## 2026-03-18
 
 ### Imessage → [0.0.1](external_plugins/imessage/CHANGELOG.html)
-Add imessage channel plugin
+iMessage bridge for Claude Code. Reads ~/Library/Messages/chat.db directly for
 
 ## 2026-03-17
 
 ### Example-plugin → [Unreleased](plugins/example-plugin/CHANGELOG.html)
-deprecate commands/ in favor of skills/<name>/SKILL.md
+P0 follow-up for EA-471. Updates plugin-dev teaching materials to stop recomme
 
 ### Plugin-dev → [Unreleased](plugins/plugin-dev/CHANGELOG.html)
-deprecate commands/ in favor of skills/<name>/SKILL.md
+P0 follow-up for EA-471. Updates plugin-dev teaching materials to stop recomme
 
 ### Ralph-loop → [Unreleased](plugins/ralph-loop/CHANGELOG.html)
-updates(staging): merge staging additions into main
+* fix readme typo
 
 ## 2026-02-24
 
@@ -77,51 +77,51 @@ update to latest skill-creator
 ## 2026-02-20
 
 ### Agent-sdk-dev → [Unreleased](plugins/agent-sdk-dev/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Claude-code-setup → [Unreleased](plugins/claude-code-setup/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Claude-md-management → [Unreleased](plugins/claude-md-management/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Code-review → [Unreleased](plugins/code-review/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Code-simplifier → [Unreleased](plugins/code-simplifier/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Commit-commands → [Unreleased](plugins/commit-commands/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Explanatory-output-style → [Unreleased](plugins/explanatory-output-style/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Feature-dev → [Unreleased](plugins/feature-dev/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Frontend-design → [Unreleased](plugins/frontend-design/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Hookify → [Unreleased](plugins/hookify/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Learning-output-style → [Unreleased](plugins/learning-output-style/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Playground → [Unreleased](plugins/playground/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Pr-review-toolkit → [Unreleased](plugins/pr-review-toolkit/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ### Security-guidance → [Unreleased](plugins/security-guidance/CHANGELOG.html)
-Add Apache 2.0 LICENSE files to all internal plugins
+- Added Apache 2.0 license to the root of each plugin directory - Ensures comp
 
 ## 2026-02-17
 
 ### Slack → [Unreleased](external_plugins/slack/CHANGELOG.html)
-update Slack plugin to HTTP transport with OAuth config
+- Switch from SSE to HTTP transport - Update URL from /sse to /mcp endpoint - 
 
 ## 2026-01-20
 
@@ -134,7 +134,7 @@ fix plugin.json description
 ## 2026-01-08
 
 ### Code-simplifier → [1.0.0](plugins/code-simplifier/CHANGELOG.html)
-Add code-simplifier plugin
+Adds a code simplification agent that: - Simplifies and refines code for clari
 
 ## 2026-01-05
 
@@ -149,31 +149,31 @@ change to use notion external
 ## 2025-12-01
 
 ### Asana → [Unreleased](external_plugins/asana/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Context7 → [Unreleased](external_plugins/context7/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Firebase → [Unreleased](external_plugins/firebase/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Github → [Unreleased](external_plugins/github/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Gitlab → [Unreleased](external_plugins/gitlab/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Laravel-boost → [Unreleased](external_plugins/laravel-boost/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Playwright → [Unreleased](external_plugins/playwright/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Serena → [Unreleased](external_plugins/serena/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ### Supabase → [Unreleased](external_plugins/supabase/CHANGELOG.html)
-Merge pull request #2 from anthropics/noahz/official_language
+Add homepages, other cleanup
 
 ## 2025-11-20
 
