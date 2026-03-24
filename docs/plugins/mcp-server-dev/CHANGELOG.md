@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Mcp-server-dev
 
 All notable changes to `plugins/mcp-server-dev` in

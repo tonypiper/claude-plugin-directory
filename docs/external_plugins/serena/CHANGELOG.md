@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Serena
 
 All notable changes to `external_plugins/serena` in

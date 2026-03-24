@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Claude-code-setup
 
 All notable changes to `plugins/claude-code-setup` in

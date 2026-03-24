@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Ralph-loop
 
 All notable changes to `plugins/ralph-loop` in

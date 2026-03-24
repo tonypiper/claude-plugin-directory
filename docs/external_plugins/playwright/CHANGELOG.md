@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Playwright
 
 All notable changes to `external_plugins/playwright` in

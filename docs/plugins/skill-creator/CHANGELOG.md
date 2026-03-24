@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Skill-creator
 
 All notable changes to `plugins/skill-creator` in

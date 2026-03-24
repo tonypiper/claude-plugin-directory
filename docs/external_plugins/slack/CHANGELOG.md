@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Slack
 
 All notable changes to `external_plugins/slack` in

@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Plugin-dev
 
 All notable changes to `plugins/plugin-dev` in

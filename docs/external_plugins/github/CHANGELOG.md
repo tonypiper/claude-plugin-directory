@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Github
 
 All notable changes to `external_plugins/github` in

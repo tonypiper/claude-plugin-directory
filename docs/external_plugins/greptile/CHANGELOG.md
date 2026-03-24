@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Greptile
 
 All notable changes to `external_plugins/greptile` in

@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Example-plugin
 
 All notable changes to `plugins/example-plugin` in

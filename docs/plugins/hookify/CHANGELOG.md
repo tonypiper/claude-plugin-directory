@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Hookify
 
 All notable changes to `plugins/hookify` in

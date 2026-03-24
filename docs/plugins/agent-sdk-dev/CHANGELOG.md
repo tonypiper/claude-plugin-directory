@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Agent-sdk-dev
 
 All notable changes to `plugins/agent-sdk-dev` in

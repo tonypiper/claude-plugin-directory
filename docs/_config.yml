@@ -16,8 +16,3 @@ defaults:
       path: ""
     values:
       layout: "default"
-  - scope:
-      path: "**/CHANGELOG.md"
-    values:
-      layout: "default"
-      render_with_liquid: false

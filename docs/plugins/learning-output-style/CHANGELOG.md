@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Learning-output-style
 
 All notable changes to `plugins/learning-output-style` in

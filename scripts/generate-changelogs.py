@@ -308,6 +308,11 @@ def format_changelog(
     """Format version sections into a CHANGELOG.md string."""
 
     lines = [
+        "---",
+        "layout: default",
+        "render_with_liquid: false",
+        "---",
+        "",
         f"# Changelog — {plugin_name}",
         "",
         f"All notable changes to `{plugin_path}` in",
@@ -353,6 +358,11 @@ def format_changelog(
 def format_rollup(plugin_summaries: list[dict]) -> str:
     """Format a repo-level rollup changelog."""
     lines = [
+        "---",
+        "layout: default",
+        "render_with_liquid: false",
+        "---",
+        "",
         "# Changelog — Claude Code Plugins",
         "",
         f"Summary of all plugin releases in",

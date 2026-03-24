@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Laravel-boost
 
 All notable changes to `external_plugins/laravel-boost` in

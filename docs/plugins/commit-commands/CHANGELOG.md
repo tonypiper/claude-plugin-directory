@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Commit-commands
 
 All notable changes to `plugins/commit-commands` in

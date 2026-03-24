@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Playground
 
 All notable changes to `plugins/playground` in

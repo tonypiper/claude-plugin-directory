@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Code-review
 
 All notable changes to `plugins/code-review` in

@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Code-simplifier
 
 All notable changes to `plugins/code-simplifier` in

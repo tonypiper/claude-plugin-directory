@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Claude-md-management
 
 All notable changes to `plugins/claude-md-management` in

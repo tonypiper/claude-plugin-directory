@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Context7
 
 All notable changes to `external_plugins/context7` in

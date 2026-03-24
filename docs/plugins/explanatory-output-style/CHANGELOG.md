@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Explanatory-output-style
 
 All notable changes to `plugins/explanatory-output-style` in

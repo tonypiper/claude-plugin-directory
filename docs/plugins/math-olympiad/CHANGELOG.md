@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Math-olympiad
 
 All notable changes to `plugins/math-olympiad` in

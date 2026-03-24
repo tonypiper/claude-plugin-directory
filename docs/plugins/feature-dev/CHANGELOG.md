@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Feature-dev
 
 All notable changes to `plugins/feature-dev` in

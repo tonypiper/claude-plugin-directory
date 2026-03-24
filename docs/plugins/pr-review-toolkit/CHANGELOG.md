@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Pr-review-toolkit
 
 All notable changes to `plugins/pr-review-toolkit` in

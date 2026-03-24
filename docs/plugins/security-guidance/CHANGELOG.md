@@ -1,3 +1,8 @@
+---
+layout: default
+render_with_liquid: false
+---
+
 # Changelog — Security-guidance
 
 All notable changes to `plugins/security-guidance` in
