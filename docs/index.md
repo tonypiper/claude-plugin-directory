@@ -37,7 +37,7 @@ repo has no releases, no tags, and no changelog.
 Each plugin's changelog is reconstructed by walking `git log` for the plugin
 directory and mapping commits to version bumps in `.claude-plugin/plugin.json`.
 
-[View the rollup changelog](CHANGELOG.md) for a timeline view across all plugins.
+[View the rollup changelog](CHANGELOG.html) for a timeline view across all plugins.
 
 ### How to contribute
 

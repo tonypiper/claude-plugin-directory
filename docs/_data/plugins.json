@@ -6,7 +6,7 @@
     "version": "unreleased",
     "description": "Asana project management integration. Create and manage tasks, search projects, update assignments, track progress, and integrate your development workflow with Asana's work management platform.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/asana/CHANGELOG.md"
+    "changelog": "external_plugins/asana/CHANGELOG.html"
   },
   {
     "name": "Context7",
@@ -15,7 +15,7 @@
     "version": "unreleased",
     "description": "Upstash Context7 MCP server for up-to-date documentation lookup. Pull version-specific documentation and code examples directly from source repositories into your LLM context.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/context7/CHANGELOG.md"
+    "changelog": "external_plugins/context7/CHANGELOG.html"
   },
   {
     "name": "Discord",
@@ -24,7 +24,7 @@
     "version": "0.0.4",
     "description": "Discord channel for Claude Code \u2014 messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access.",
     "last_updated": "2026-03-23",
-    "changelog": "external_plugins/discord/CHANGELOG.md"
+    "changelog": "external_plugins/discord/CHANGELOG.html"
   },
   {
     "name": "Fakechat",
@@ -33,7 +33,7 @@
     "version": "0.0.1",
     "description": "Localhost iMessage-style web chat for Claude Code \u2014 test surface with file upload and edits. No tokens, no access control.",
     "last_updated": "2026-03-19",
-    "changelog": "external_plugins/fakechat/CHANGELOG.md"
+    "changelog": "external_plugins/fakechat/CHANGELOG.html"
   },
   {
     "name": "Firebase",
@@ -42,7 +42,7 @@
     "version": "unreleased",
     "description": "Google Firebase MCP integration. Manage Firestore databases, authentication, cloud functions, hosting, and storage. Build and manage your Firebase backend directly from your development workflow.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/firebase/CHANGELOG.md"
+    "changelog": "external_plugins/firebase/CHANGELOG.html"
   },
   {
     "name": "Github",
@@ -51,7 +51,7 @@
     "version": "unreleased",
     "description": "Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories, and interact with GitHub's full API directly from Claude Code.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/github/CHANGELOG.md"
+    "changelog": "external_plugins/github/CHANGELOG.html"
   },
   {
     "name": "Gitlab",
@@ -60,7 +60,7 @@
     "version": "unreleased",
     "description": "GitLab DevOps platform integration. Manage repositories, merge requests, CI/CD pipelines, issues, and wikis. Full access to GitLab's comprehensive DevOps lifecycle tools.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/gitlab/CHANGELOG.md"
+    "changelog": "external_plugins/gitlab/CHANGELOG.html"
   },
   {
     "name": "Greptile",
@@ -69,7 +69,7 @@
     "version": "unreleased",
     "description": "AI code review agent for GitHub and GitLab. View and resolve Greptile's PR review comments directly from Claude Code.",
     "last_updated": "2026-01-05",
-    "changelog": "external_plugins/greptile/CHANGELOG.md"
+    "changelog": "external_plugins/greptile/CHANGELOG.html"
   },
   {
     "name": "Imessage",
@@ -78,7 +78,7 @@
     "version": "0.0.1",
     "description": "iMessage channel for Claude Code \u2014 reads chat.db directly, sends via AppleScript. Built-in access control; manage pairing, allowlists, and policy via /imessage:access.",
     "last_updated": "2026-03-23",
-    "changelog": "external_plugins/imessage/CHANGELOG.md"
+    "changelog": "external_plugins/imessage/CHANGELOG.html"
   },
   {
     "name": "Laravel-boost",
@@ -87,7 +87,7 @@
     "version": "unreleased",
     "description": "Laravel development toolkit MCP server. Provides intelligent assistance for Laravel applications including Artisan commands, Eloquent queries, routing, migrations, and framework-specific code generation.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/laravel-boost/CHANGELOG.md"
+    "changelog": "external_plugins/laravel-boost/CHANGELOG.html"
   },
   {
     "name": "Linear",
@@ -96,7 +96,7 @@
     "version": "unreleased",
     "description": "Linear issue tracking integration. Create issues, manage projects, update statuses, search across workspaces, and streamline your software development workflow with Linear's modern issue tracker.",
     "last_updated": "2025-12-16",
-    "changelog": "external_plugins/linear/CHANGELOG.md"
+    "changelog": "external_plugins/linear/CHANGELOG.html"
   },
   {
     "name": "Playwright",
@@ -105,7 +105,7 @@
     "version": "unreleased",
     "description": "Browser automation and end-to-end testing MCP server by Microsoft. Enables Claude to interact with web pages, take screenshots, fill forms, click elements, and perform automated browser testing workflows.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/playwright/CHANGELOG.md"
+    "changelog": "external_plugins/playwright/CHANGELOG.html"
   },
   {
     "name": "Serena",
@@ -114,7 +114,7 @@
     "version": "unreleased",
     "description": "Semantic code analysis MCP server providing intelligent code understanding, refactoring suggestions, and codebase navigation through language server protocol integration.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/serena/CHANGELOG.md"
+    "changelog": "external_plugins/serena/CHANGELOG.html"
   },
   {
     "name": "Slack",
@@ -123,7 +123,7 @@
     "version": "unreleased",
     "description": "Slack workspace integration. Search messages, access channels, read threads, and stay connected with your team's communications while coding. Find relevant discussions and context quickly.",
     "last_updated": "2026-02-17",
-    "changelog": "external_plugins/slack/CHANGELOG.md"
+    "changelog": "external_plugins/slack/CHANGELOG.html"
   },
   {
     "name": "Supabase",
@@ -132,7 +132,7 @@
     "version": "unreleased",
     "description": "Supabase MCP integration for database operations, authentication, storage, and real-time subscriptions. Manage your Supabase projects, run SQL queries, and interact with your backend directly.",
     "last_updated": "2025-12-01",
-    "changelog": "external_plugins/supabase/CHANGELOG.md"
+    "changelog": "external_plugins/supabase/CHANGELOG.html"
   },
   {
     "name": "Telegram",
@@ -141,7 +141,7 @@
     "version": "0.0.4",
     "description": "Telegram channel for Claude Code \u2014 messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
     "last_updated": "2026-03-23",
-    "changelog": "external_plugins/telegram/CHANGELOG.md"
+    "changelog": "external_plugins/telegram/CHANGELOG.html"
   },
   {
     "name": "Agent-sdk-dev",
@@ -150,7 +150,7 @@
     "version": "unreleased",
     "description": "Claude Agent SDK Development Plugin",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/agent-sdk-dev/CHANGELOG.md"
+    "changelog": "plugins/agent-sdk-dev/CHANGELOG.html"
   },
   {
     "name": "Claude-code-setup",
@@ -159,7 +159,7 @@
     "version": "1.0.0",
     "description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents.",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/claude-code-setup/CHANGELOG.md"
+    "changelog": "plugins/claude-code-setup/CHANGELOG.html"
   },
   {
     "name": "Claude-md-management",
@@ -168,7 +168,7 @@
     "version": "1.0.0",
     "description": "Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/claude-md-management/CHANGELOG.md"
+    "changelog": "plugins/claude-md-management/CHANGELOG.html"
   },
   {
     "name": "Code-review",
@@ -177,7 +177,7 @@
     "version": "unreleased",
     "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/code-review/CHANGELOG.md"
+    "changelog": "plugins/code-review/CHANGELOG.html"
   },
   {
     "name": "Code-simplifier",
@@ -186,7 +186,7 @@
     "version": "1.0.0",
     "description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/code-simplifier/CHANGELOG.md"
+    "changelog": "plugins/code-simplifier/CHANGELOG.html"
   },
   {
     "name": "Commit-commands",
@@ -195,7 +195,7 @@
     "version": "unreleased",
     "description": "Streamline your git workflow with simple commands for committing, pushing, and creating pull requests",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/commit-commands/CHANGELOG.md"
+    "changelog": "plugins/commit-commands/CHANGELOG.html"
   },
   {
     "name": "Example-plugin",
@@ -204,7 +204,7 @@
     "version": "unreleased",
     "description": "A comprehensive example plugin demonstrating all Claude Code extension options including commands, agents, skills, hooks, and MCP servers",
     "last_updated": "2026-03-17",
-    "changelog": "plugins/example-plugin/CHANGELOG.md"
+    "changelog": "plugins/example-plugin/CHANGELOG.html"
   },
   {
     "name": "Explanatory-output-style",
@@ -213,7 +213,7 @@
     "version": "unreleased",
     "description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/explanatory-output-style/CHANGELOG.md"
+    "changelog": "plugins/explanatory-output-style/CHANGELOG.html"
   },
   {
     "name": "Feature-dev",
@@ -222,7 +222,7 @@
     "version": "unreleased",
     "description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/feature-dev/CHANGELOG.md"
+    "changelog": "plugins/feature-dev/CHANGELOG.html"
   },
   {
     "name": "Frontend-design",
@@ -231,7 +231,7 @@
     "version": "unreleased",
     "description": "Frontend design skill for UI/UX implementation",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/frontend-design/CHANGELOG.md"
+    "changelog": "plugins/frontend-design/CHANGELOG.html"
   },
   {
     "name": "Hookify",
@@ -240,7 +240,7 @@
     "version": "unreleased",
     "description": "Easily create hooks to prevent unwanted behaviors by analyzing conversation patterns",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/hookify/CHANGELOG.md"
+    "changelog": "plugins/hookify/CHANGELOG.html"
   },
   {
     "name": "Learning-output-style",
@@ -249,7 +249,7 @@
     "version": "unreleased",
     "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/learning-output-style/CHANGELOG.md"
+    "changelog": "plugins/learning-output-style/CHANGELOG.html"
   },
   {
     "name": "Math-olympiad",
@@ -258,7 +258,7 @@
     "version": "unreleased",
     "description": "Solve competition math (IMO, Putnam, USAMO) with adversarial verification that catches what self-verification misses. Fresh-context verifiers attack proofs with specific failure patterns. Calibrated abstention over bluffing.",
     "last_updated": "2026-03-20",
-    "changelog": "plugins/math-olympiad/CHANGELOG.md"
+    "changelog": "plugins/math-olympiad/CHANGELOG.html"
   },
   {
     "name": "Mcp-server-dev",
@@ -267,7 +267,7 @@
     "version": "unreleased",
     "description": "Skills for designing and building MCP servers that work seamlessly with Claude \u2014 guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps.",
     "last_updated": "2026-03-20",
-    "changelog": "plugins/mcp-server-dev/CHANGELOG.md"
+    "changelog": "plugins/mcp-server-dev/CHANGELOG.html"
   },
   {
     "name": "Playground",
@@ -276,7 +276,7 @@
     "version": "unreleased",
     "description": "Creates interactive HTML playgrounds \u2014 self-contained single-file explorers with visual controls, live preview, and prompt output with copy button",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/playground/CHANGELOG.md"
+    "changelog": "plugins/playground/CHANGELOG.html"
   },
   {
     "name": "Plugin-dev",
@@ -285,7 +285,7 @@
     "version": "unreleased",
     "description": "Plugin development toolkit with skills for creating agents, commands, hooks, MCP integrations, and comprehensive plugin structure guidance",
     "last_updated": "2026-03-17",
-    "changelog": "plugins/plugin-dev/CHANGELOG.md"
+    "changelog": "plugins/plugin-dev/CHANGELOG.html"
   },
   {
     "name": "Pr-review-toolkit",
@@ -294,7 +294,7 @@
     "version": "unreleased",
     "description": "Comprehensive PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/pr-review-toolkit/CHANGELOG.md"
+    "changelog": "plugins/pr-review-toolkit/CHANGELOG.html"
   },
   {
     "name": "Ralph-loop",
@@ -303,7 +303,7 @@
     "version": "unreleased",
     "description": "Continuous self-referential AI loops for interactive iterative development, implementing the Ralph Wiggum technique. Run Claude in a while-true loop with the same prompt until task completion.",
     "last_updated": "2026-03-17",
-    "changelog": "plugins/ralph-loop/CHANGELOG.md"
+    "changelog": "plugins/ralph-loop/CHANGELOG.html"
   },
   {
     "name": "Security-guidance",
@@ -312,7 +312,7 @@
     "version": "unreleased",
     "description": "Security reminder hook that warns about potential security issues when editing files, including command injection, XSS, and unsafe code patterns",
     "last_updated": "2026-02-20",
-    "changelog": "plugins/security-guidance/CHANGELOG.md"
+    "changelog": "plugins/security-guidance/CHANGELOG.html"
   },
   {
     "name": "Skill-creator",
@@ -321,6 +321,6 @@
     "version": "unreleased",
     "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
     "last_updated": "2026-02-24",
-    "changelog": "plugins/skill-creator/CHANGELOG.md"
+    "changelog": "plugins/skill-creator/CHANGELOG.html"
   }
 ]

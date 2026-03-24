@@ -401,7 +401,7 @@ def format_rollup(plugin_summaries: list[dict]) -> str:
         lines.append(f"## {date}")
         for item in sorted(by_date[date], key=lambda x: x["plugin_name"]):
             version_display = item["version"]
-            changelog_path = f"{item['plugin_path']}/CHANGELOG.md"
+            changelog_path = f"{item['plugin_path']}/CHANGELOG.html"
             lines.append("")
             lines.append(f"### {item['plugin_name']} → [{version_display}]({changelog_path})")
             lines.append(item["headline"])
@@ -498,7 +498,7 @@ def main():
             "version": latest_version,
             "description": ps["description"],
             "last_updated": last_updated,
-            "changelog": f"{ps['plugin_path']}/CHANGELOG.md",
+            "changelog": f"{ps['plugin_path']}/CHANGELOG.html",
         })
 
     index_path = os.path.join(output_dir, "_data", "plugins.json")
