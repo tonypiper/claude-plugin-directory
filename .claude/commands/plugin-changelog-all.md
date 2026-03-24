@@ -1,7 +1,11 @@
 # Plugin Changelog Generator — All Plugins
 
-Generate intelligent changelogs for all plugins in the official repo using parallel subagents,
-one per plugin, to avoid context exhaustion.
+Generate intelligent changelogs for all plugins by using a shell script to gather git data
+in parallel, then processing each plugin in the main session to write well-described changelogs.
+
+This approach avoids subagents needing Bash permission (which requires interactive approval
+per-agent and breaks parallel workflows). All git work happens in one shell pass; all analysis
+and writing happens in the main Claude session.
 
 ## Prerequisites
 
@@ -14,120 +18,113 @@ git clone https://github.com/anthropics/claude-plugins-official.git
 Default expected location: `../claude-plugins-official` (sibling of this repo).
 If the clone is elsewhere, ask the user for the path.
 
-## Step 1: Discover all plugins
+## Step 1: Pull latest and discover plugins
 
 ```bash
+cd <repo-path> && git pull --ff-only
 find <repo-path> -name "plugin.json" -path "*/.claude-plugin/*" | sort
 ```
 
-This gives the full list of plugins. Extract the plugin path (e.g. `external_plugins/telegram`)
-from each result by stripping `/.claude-plugin/plugin.json`.
+Extract the plugin path (e.g. `external_plugins/telegram`) from each result by stripping
+the repo prefix and `/.claude-plugin/plugin.json` suffix.
 
-## Step 2: Assess complexity
+## Step 2: Gather all git data in one parallel shell pass
 
-For each plugin, quickly check how many version bumps and commits it has:
-
-```python
-import subprocess, json
-
-repo = "<repo-path>"
-for plugin_path in plugins:
-    versions = subprocess.run(
-        ["git", "-C", repo, "log", "--oneline", "--", f"{plugin_path}/.claude-plugin/plugin.json"],
-        capture_output=True, text=True
-    ).stdout.strip().split("\n")
-
-    commits = subprocess.run(
-        ["git", "-C", repo, "log", "--oneline", "--no-merges", "--", plugin_path],
-        capture_output=True, text=True
-    ).stdout.strip().split("\n")
-
-    print(f"{plugin_path}: {len(versions)} version commits, {len(commits)} total commits")
-```
-
-Use this to decide batching:
-- **Simple** (1 version, ≤5 commits): batch up to 6 per agent
-- **Medium** (2-3 versions, ≤15 commits): 2-3 per agent
-- **Complex** (4+ versions or rich commit bodies like Telegram): 1 per agent
-
-## Step 3: Launch agents in parallel
-
-Use the Agent tool to launch multiple subagents simultaneously. Each agent receives:
-
-1. The list of plugin paths it is responsible for
-2. The repo path
-3. The output directory path (`docs/` in this repo)
-4. The full changelog format spec (below)
-
-**Important:** Pass all agents in a single message to run them in parallel.
-
-## Agent prompt template
-
-Use this as the prompt for each subagent:
-
----
-
-You are generating CHANGELOG.md files for Claude Code plugins by manually analysing git history.
-Do NOT use any Python generator script. Use git commands directly.
-
-**Repo path:** `<repo-path>`
-**Output base:** `<output-dir>`
-**Plugins to process:** `<plugin-path-1>`, `<plugin-path-2>`, ...
-
-For each plugin:
-
-### 1. Get version history
+Run this script **once** to dump version history, commits, and plugin.json content for every
+plugin into temp files. The `&` + `wait` pattern runs all plugins in parallel.
 
 ```bash
 python3 -c "
-import subprocess, json
-repo = '<repo-path>'
-plugin = '<plugin-path>'
-result = subprocess.run(['git', '-C', repo, 'log', '--pretty=format:%h\t%ai\t%s', '--', f'{plugin}/.claude-plugin/plugin.json'], capture_output=True, text=True)
-for line in result.stdout.strip().split('\n'):
-    sha, date, subject = line.split('\t', 2)
-    content = subprocess.run(['git', '-C', repo, 'show', f'{sha}:{plugin}/.claude-plugin/plugin.json'], capture_output=True, text=True)
-    try: version = json.loads(content.stdout).get('version', 'deleted')
-    except: version = 'deleted'
-    print(f'{sha}  {version}  {date[:10]}  {subject}')
+import subprocess, json, os, pathlib
+
+REPO = '<repo-path>'
+TMPDIR = '/tmp/claude-changelog-data'
+pathlib.Path(TMPDIR).mkdir(exist_ok=True)
+
+plugins = subprocess.run(
+    ['find', REPO, '-name', 'plugin.json', '-path', '*/.claude-plugin/*'],
+    capture_output=True, text=True
+).stdout.strip().split('\n')
+
+plugin_paths = sorted([
+    p.replace(REPO + '/', '').replace('/.claude-plugin/plugin.json', '')
+    for p in plugins if p.strip()
+])
+
+for plugin in plugin_paths:
+    safe = plugin.replace('/', '__')
+    out = []
+
+    # Plugin metadata
+    meta = subprocess.run(['cat', f'{REPO}/{plugin}/.claude-plugin/plugin.json'], capture_output=True, text=True)
+    out.append('=== PLUGIN.JSON ===')
+    out.append(meta.stdout.strip())
+
+    # Version history (each SHA that touched plugin.json + version at that SHA)
+    out.append('\n=== VERSION HISTORY ===')
+    vlog = subprocess.run(
+        ['git', '-C', REPO, 'log', '--pretty=format:%H\t%h\t%ai\t%s', '--', f'{plugin}/.claude-plugin/plugin.json'],
+        capture_output=True, text=True
+    )
+    for line in vlog.stdout.strip().split('\n'):
+        if not line.strip(): continue
+        full_sha, short_sha, date, subject = line.split('\t', 3)
+        content = subprocess.run(
+            ['git', '-C', REPO, 'show', f'{full_sha}:{plugin}/.claude-plugin/plugin.json'],
+            capture_output=True, text=True
+        )
+        try: version = json.loads(content.stdout).get('version', 'deleted')
+        except: version = 'deleted/parse-error'
+        out.append(f'{full_sha}  {short_sha}  {version}  {date[:10]}  {subject}')
+
+    # All commits touching the plugin dir (no merges), with full SHA and body
+    out.append('\n=== COMMITS ===')
+    clog = subprocess.run(
+        ['git', '-C', REPO, 'log', '--pretty=format:COMMIT %H %h %ai%n%s%n%b%n---', '--no-merges', '--', plugin],
+        capture_output=True, text=True
+    )
+    out.append(clog.stdout.strip())
+
+    pathlib.Path(f'{TMPDIR}/{safe}.txt').write_text('\n'.join(out))
+    print(f'Gathered: {plugin}')
+
+print(f'\nAll data written to {TMPDIR}/')
+print('Plugin list:', ', '.join(plugin_paths))
 "
 ```
 
-### 2. Get all commits with bodies
+This writes one file per plugin to `/tmp/claude-changelog-data/`. Each file contains everything
+needed to write the changelog without any further git calls.
+
+## Step 3: Assess complexity and decide processing order
+
+Read a few of the gathered data files to understand the landscape. For each plugin, count:
+- **Version bumps** — lines in the `=== VERSION HISTORY ===` section
+- **Commits** — count `COMMIT ` lines in the `=== COMMITS ===` section
+
+Prioritise:
+- **Complex** (4+ versions OR 15+ commits): process individually, write carefully
+- **Medium** (2–3 versions, up to 15 commits): process in batches of 3–4
+- **Simple** (1 version, ≤5 commits): batch up to 6 at once
+
+Process complex plugins first — they benefit most from careful descriptions.
+
+## Step 4: Process each plugin (or batch)
+
+For each plugin (or batch), read the gathered data file(s) and write the changelog.
 
 ```bash
-python3 -c "
-import subprocess
-repo = '<repo-path>'
-plugin = '<plugin-path>'
-result = subprocess.run(['git', '-C', repo, 'log', '--pretty=format:%h\t%ai\t%s\t%b', '--no-merges', '--', plugin], capture_output=True, text=True)
-print(result.stdout)
-"
+cat /tmp/claude-changelog-data/<plugin-safe-name>.txt
 ```
 
-Read the commit bodies carefully — they often contain the real explanation of why a change was made.
+Where `<plugin-safe-name>` replaces `/` with `__` (e.g. `external_plugins__telegram.txt`).
 
-### 3. Group commits by version
+Then write `docs/<plugin-path>/CHANGELOG.md` using the format below.
 
-Map each commit to a version section based on date ranges between version bumps:
-- Commits after the latest version bump → `[Unreleased]`
-- Commits between two version bumps → the newer version
-- Commits before the first version bump → the initial version
+**Important:** Read the full commit bodies — they explain *why* changes were made and are
+the key difference between an intelligent changelog and one that just restates commit subjects.
 
-### 4. Classify each commit
-
-- `feat:` / `add:` / new capability → **Added**
-- `fix:` / bug / crash / error handling → **Fixed**
-- refactor / config / behaviour change → **Changed**
-- permission / sanitize / credential / security → **Security**
-- `docs:` / README → **Docs**
-
-Skip merge commits. When a commit touches both plugins (e.g. telegram+discord together),
-include it in both changelogs with appropriate descriptions.
-
-### 5. Write the CHANGELOG.md
-
-Write to `<output-dir>/<plugin-path>/CHANGELOG.md`. Use this format:
+### Changelog format
 
 ```markdown
 ---
@@ -154,34 +151,51 @@ This changelog was compiled from the merged PR and commit history on the `main` 
   [`abc1234`](https://github.com/anthropics/claude-plugins-official/commit/<full-sha>) · YYYY-MM-DD · ([#NNN](https://github.com/anthropics/claude-plugins-official/pull/NNN))
 ```
 
-Rules:
-- Title: read `name` from plugin.json, capitalise first letter only
-- Descriptions must explain the *why*, not just restate the commit subject
-- Read commit bodies for context — they often explain the root cause or motivation
-- Group by version newest-first, then by category (Added, Changed, Fixed, Security, Docs)
-- If a plugin was deleted and restored, add a `> **Note:**` blockquote in that version
-- For plugins with no version field, use `[Unreleased]` for all commits
-- Do NOT invent version numbers
+### Writing rules
 
-Write each file, then confirm the path written.
+- **Title:** read `name` from plugin.json, capitalise first letter only. No suffix ("Plugin", "Skill", etc.)
+- **Descriptions:** explain the *why*, not just restate the commit subject. Use commit bodies.
+- **Grouping:** newest version first, then by category within each version: Added → Changed → Fixed → Security → Docs
+- **Version date:** use the date of the version-bump commit
+- **[Unreleased]:** omit the date from the header; individual entries still show their commit dates
+- **Deleted/restored plugins:** add a `> **Note:**` blockquote in the affected version section
+- **No invented versions:** only use version numbers that actually appeared in plugin.json
+- **PR links:** extract from `(#NNN)` in commit subjects — `([#NNN](https://github.com/anthropics/claude-plugins-official/pull/NNN))`; omit if absent
+- **Commit deduplication:** when a commit touches multiple plugins (common for telegram+discord), include it in both with appropriate per-plugin descriptions
+- **Skip** true merge commits (subject starts with "Merge pull request" or "Merge branch") that add no content of their own
 
----
+### Grouping commits by version
 
-## Step 4: Generate updated rollup
+Working backwards from newest:
+- Commits dated **after** the latest version-bump SHA → `[Unreleased]`
+- Commits dated **between** two consecutive version-bump SHAs → the newer version
+- Commits dated **on or before** the first version-bump SHA → the initial version
 
-After all agents complete, regenerate `docs/CHANGELOG.md` by running the Python script
-with `--rollup` only (this part is mechanical and doesn't need summarisation):
+The version-bump SHA itself belongs to the version it introduced.
+
+## Step 5: Generate updated rollup
+
+After all per-plugin changelogs are written, regenerate the rollup:
 
 ```bash
 python3 scripts/generate-changelogs.py <repo-path> --output-dir docs --rollup
 ```
 
-Then manually check the rollup file has proper front matter (`render_with_liquid: false`).
+Check that `docs/CHANGELOG.md` has `render_with_liquid: false` in its front matter.
 
-## Step 5: Commit and push
+## Step 6: Commit
 
 ```bash
 git add -A
 git commit -m "Regenerate all changelogs with intelligent summarisation"
 git push
 ```
+
+## Notes
+
+- The data-gathering script (Step 2) runs in ~5–10 seconds for the full repo and is safe
+  to re-run — it just overwrites the temp files.
+- If a plugin's history is too large to process in one context pass, read only the version
+  history section first to understand the structure, then read commits section by section.
+- Plugins that were recently added but have no interesting commits (just "initial scaffolding"
+  type entries) are fine to describe briefly — don't pad them with filler.
